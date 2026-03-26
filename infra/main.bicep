@@ -1,5 +1,6 @@
 param location string = resourceGroup().location
 
+# test
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   name: 'myregistry'
   location: location
