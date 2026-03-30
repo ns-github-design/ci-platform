@@ -29,4 +29,8 @@ jobs:
           az containerapp update \
             --name ${{ inputs.app_name }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/app:${{ inputs.image_tag }}
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/app:${{ inputs.image_tag }} \
+            --set-env-vars \
+              GITHUB_SHA=${{ inputs.image_tag }} \
+              APP_ENV=${{ inputs.environment }}
+
