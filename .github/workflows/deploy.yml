@@ -25,10 +25,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - run: |
+      - name: Deploy container
+        run: |
+          echo "Deploying image ${{ inputs.image_tag }} to ${{ inputs.environment }}"
           az containerapp update \
             --name ${{ inputs.app_name }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/app:${{ inputs.image_tag }} \
-            --set-env-vars GITHUB_SHA=${{ inputs.image_tag }} APP_ENV=${{ inputs.environment }}
-
+            --set-env-vars \
+              APP_ENV=${{ inputs.environment }} \
+              GITHUB_SHA=${{ inputs.image_tag }}
